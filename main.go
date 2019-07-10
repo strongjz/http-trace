@@ -13,7 +13,6 @@ import (
 	"log"
 	"net/http"
 	"time"
-
 )
 
 type URLValue struct {
@@ -38,8 +37,6 @@ func (v URLValue) Set(s string) error {
 
 var u = &url.URL{}
 
-
-
 func main() {
 	start := time.Now()
 
@@ -52,11 +49,14 @@ func main() {
 
 	fs.Var(&URLValue{u}, "url", "URL to parse")
 
-	fs.Parse([]string{"-url", *testURL})
-	fmt.Printf(`{scheme: %q, host: %q, path: %q}`, u.Scheme, u.Host, u.Path)
+	err := fs.Parse([]string{"-url", *testURL})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf("Scheme: %q, host: %q, path: %q", u.Scheme, u.Host, u.Path)
 
 	flag.Parse()
-
 
 	// Create a new HTTP request
 	req, err := http.NewRequest(*method, *testURL, nil)
@@ -89,14 +89,14 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	a, err := dig.A(*testURL)  // dig google.com @8.8.8.8
+	a, err := dig.A(*testURL) // dig google.com @8.8.8.8
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	for _, r := range a {
 
-		log.Printf("DNS result %v",r)
+		log.Printf("DNS result %v", r)
 	}
 
 	// Save a copy of this request for debugging.
@@ -110,9 +110,16 @@ func main() {
 
 	result.End(time.Now())
 
-	log.Printf("%+v\n", result)
+	log.Printf("Connection Time: \t%+v\n", result.Connect)
+	log.Printf("DNS Lookup: \t%+v\n", result.DNSLookup)
+	log.Printf("Name lookup: \t%+v\n", result.NameLookup)
+	log.Printf("Pretransfer: \t%+v\n", result.Pretransfer)
+	log.Printf("Server Processing: \t%+v\n", result.ServerProcessing)
+	log.Printf("Start Transfer: \t%+v\n", result.StartTransfer)
+	log.Printf("TCP Connection: \t%+v\n", result.TCPConnection)
+	log.Printf("TLS  Handshake: \t%+v\n", result.TLSHandshake)
+	log.Printf("Status Code: \t%+v\n", res.StatusCode)
 
-
-	log.Printf("Entire timing: %v", time.Since(start))
+	log.Printf("Entire timing: \t%v\n", time.Since(start))
 
 }
