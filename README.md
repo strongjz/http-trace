@@ -3,6 +3,8 @@
 
 Record information about HTTP requests
 
+[Docker Repo](https://hub.docker.com/r/strongjz/http-trace)
+
 Building both windows and linux 
 
 ```bash

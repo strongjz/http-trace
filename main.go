@@ -84,7 +84,7 @@ func main() {
 	log.Printf("URL Scheme: \t%+v\n", u.Scheme)
 	log.Printf("URL host: \t%+v\n", u.Host)
 	log.Printf("URL Path: \t%+v\n", u.Path)
-	log.Printf("Name Server: \t%+v\n", nameServer)
+	log.Printf("Name Server: \t%+v\n", *nameServer)
 
 	log.Printf("Connection Time: \t%+v\n", result.Connect)
 	log.Printf("DNS Lookup: \t%+v\n", result.DNSLookup)
