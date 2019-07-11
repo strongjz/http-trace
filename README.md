@@ -1,5 +1,6 @@
 # http-trace
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/strongjz/http-trace)](https://goreportcard.com/report/github.com/strongjz/http-trace)
 
 Record information about HTTP requests
 
