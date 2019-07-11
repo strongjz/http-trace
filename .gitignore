@@ -1,1 +1,5 @@
 .idea/*
+http-trace
+http-trace_unix
+http-trace_windows.exe
+./bin/*
